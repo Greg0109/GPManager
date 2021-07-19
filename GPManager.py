@@ -2,7 +2,6 @@
 from cryptography.fernet import Fernet
 import os
 import json
-import socket
 import sys
 
 
