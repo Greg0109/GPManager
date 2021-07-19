@@ -29,11 +29,12 @@ def load_key(key):
     else:
         return key
 
-def delete_json_database():
+def delete_json_database(withEncrypted=False):
     if os.path.exists(jsonfile):
         os.remove(jsonfile)
-    if os.path.exists(encryptedDatabase):
-        os.remove(encryptedDatabase)
+    if withEncrypted == True:
+        if os.path.exists(encryptedDatabase):
+            os.remove(encryptedDatabase)
 
 def encrypt(filename, key):
     with open(filename, 'rb') as f:
@@ -152,7 +153,7 @@ if __name__ == '__main__':
         if sys.argv[1] == 'create':
             create_json_database()
         elif sys.argv[1] == 'trash':
-            delete_json_database()
+            delete_json_database(True)
         elif sys.argv[1] == 'add':
             name = sys.argv[2]
             url = sys.argv[3]
