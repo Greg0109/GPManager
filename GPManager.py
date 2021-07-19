@@ -33,6 +33,8 @@ def load_key(key):
 def delete_json_database():
     if os.path.exists(jsonfile):
         os.remove(jsonfile)
+    if os.path.exists(encryptedDatabase):
+        os.remove(encryptedDatabase)
 
 def encrypt(filename, key):
     with open(filename, 'rb') as f:
