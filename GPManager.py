@@ -3,7 +3,7 @@ from cryptography.fernet import Fernet
 import os
 import json
 import sys
-
+import random
 
 folder = '/PATH/TO/GPMANAGER/FOLDER'
 if not os.path.exists(folder):
@@ -95,6 +95,17 @@ def add_entry(name, url='Empty', username='Empty', password='Empty'):
         json.dump(database, f)
     save_json_database(database)
 
+def generatePassword(length=10):
+    alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-.,'
+    password = ''
+    for i in range(length):
+        password += random.choice(alphabet)
+    return password
+
+def generatePasswordAndAddEntry(name, url='Empty', username='Empty'):
+    password = generatePassword()
+    add_entry(name, url, username, password)
+
 def delete_entry(name):
     database = read_json_database()
     del database[name]
@@ -133,6 +144,8 @@ if __name__ == '__main__':
         print('delete <name>: delete entry from database')
         print('print: print all names')
         print('newkey: generate and print new key')
+        print('generatePassword: generate a random password')
+        print('generatePasswordAndAddEntry <name> <url> <username>: generate password and add entry to database')
     else:
         key = load_key(sys.argv[-1])
 
@@ -160,3 +173,10 @@ if __name__ == '__main__':
             print_names()
         elif sys.argv[1] == 'newkey':
             write_key()
+        elif sys.argv[1] == 'generatePassword':
+            generatePassword()
+        elif sys.argv[1] == 'generatePasswordAndAddEntry':
+            name = sys.argv[2]
+            url = sys.argv[3]
+            username = sys.argv[4]
+            generatePasswordAndAddEntry(name, url, username)
