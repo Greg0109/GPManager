@@ -175,7 +175,7 @@ if __name__ == '__main__':
         elif sys.argv[1] == 'newkey':
             write_key()
         elif sys.argv[1] == 'generatePassword':
-            generatePassword()
+            print(generatePassword())
         elif sys.argv[1] == 'generatePasswordAndAddEntry':
             name = sys.argv[2]
             url = sys.argv[3]
